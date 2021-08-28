@@ -1,5 +1,10 @@
-import "./App.css";
+import React, { useState } from 'react'
+import Sign from './components/Sign'
 
-const App = () => <h1>Fitofit</h1>;
+const App = () => {
+  const [user, setUser] = useState({})
 
-export default App;
+  return <Sign />
+}
+
+export default App
