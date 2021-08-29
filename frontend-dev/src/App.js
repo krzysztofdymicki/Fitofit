@@ -1,10 +1,8 @@
-import React, { useState } from 'react'
-import Sign from './components/Sign'
+import React, { useState, useEffect } from 'react'
+import Body from './components/Body'
 
 const App = () => {
-  const [user, setUser] = useState({})
-
-  return <Sign />
+  return <Body />
 }
 
 export default App

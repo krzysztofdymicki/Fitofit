@@ -9,26 +9,29 @@ const activitySchema = new mongoose.Schema({
   distance: Number,
 })
 
-const userSchema = new mongoose.Schema({
-  username: {
-    type: String,
-    unique: true,
-    required: true,
-    minlength: 8,
+const userSchema = new mongoose.Schema(
+  {
+    username: {
+      type: String,
+      unique: true,
+      required: true,
+      minlength: 8,
+    },
+    passwordHash: String,
+    activities: [activitySchema],
   },
-  passwordHash: String,
-  activities: [activitySchema],
-})
+  {
+    toJSON: {
+      transform: (doc, ret) => {
+        ret.id = ret._id.toString()
+        delete ret._id
+        delete ret.__v
+        delete ret.passwordHash
+      },
+    },
+  }
+)
 
 userSchema.plugin(uniqueValidator)
-
-userSchema.set('toJSON', {
-  transform: (document, returnedObject) => {
-    returnedObject.id = returnedObject._id.toString()
-    delete returnedObject.__id
-    delete returnedObject.__V
-    delete returnedObject.passwordHash
-  },
-})
 
 module.exports = mongoose.model('User', userSchema)

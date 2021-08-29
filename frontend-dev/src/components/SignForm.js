@@ -1,9 +1,37 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap'
 
-const SignForm = ({ active }) => {
+const SignForm = ({ active, setNotification, handleSignIn, handleSignUp }) => {
+  // --- SUBMIT FUNCTION DEPENDING ON THE TYPE OF ACTION (SIGN UP / SIGN IN)
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    const username = event.target.username.value
+    const password = event.target.password.value
+
+    if (username.length < 8 || password.length < 8) {
+      setNotification({
+        message:
+          'Both password and username should be at least 8 characters long',
+        color: 'red',
+      })
+      return setTimeout(() => {
+        setNotification('')
+      }, 5000)
+    }
+    const credentials = {
+      username,
+      password,
+    }
+
+    if (active === 'SIGN UP') {
+      handleSignUp(credentials)
+    } else if (active === 'SIGN IN') {
+      handleSignIn(credentials)
+    }
+  }
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <FormGroup>
         <Label for="username">Username</Label>
         <Input
