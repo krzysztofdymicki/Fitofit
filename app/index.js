@@ -7,6 +7,7 @@ const morgan = require('morgan')
 const usersRouter = require('./controllers/users')
 const signInRouter = require('./controllers/singIn')
 const { unknownEndpoint, errors } = require('./utils/errorHandler')
+const { tokenExtractor } = require('./utils/middleware')
 
 // CONNECTING TO THE DB
 
@@ -19,8 +20,9 @@ mongoose
 
 const app = express()
 app.use(cors())
-app.use(morgan('tiny'))
 app.use(express.json())
+app.use(tokenExtractor)
+app.use(morgan('tiny'))
 app.use('/api/users', usersRouter)
 app.use('/api/signin', signInRouter)
 

@@ -1,0 +1,4 @@
+GET http://localhost:3001/api/users/activities
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsIn5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjEyMzQ1Njc4IiwiaWQiOiI2MTJiNGYyZWExMmNiY2U0MWE4ZTIzYWMiLCJpYXQiOjE2MzAyNDY0NTV9.BhZckOrPC9DxRj3G6ErqUT5yf436CbVSVt6telL-E9M
+

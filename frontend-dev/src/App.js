@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import Body from './components/Body'
+import React from 'react'
+import Main from './components/Main'
 
 const App = () => {
-  return <Body />
+  return (
+    <div id="home">
+      <Main />
+    </div>
+  )
 }
 
 export default App

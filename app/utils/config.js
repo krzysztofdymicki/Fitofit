@@ -7,10 +7,12 @@ const mongooseOptions = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }
+const LOCATIONIQ_KEY = process.env.LOCATIONIQ_KEY
 
 module.exports = {
   MONGODB_URI,
   mongooseOptions,
   PORT,
   JWT_SECRET,
+  LOCATIONIQ_KEY,
 }

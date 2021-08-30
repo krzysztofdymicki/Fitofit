@@ -2,7 +2,6 @@ const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
 
 const activitySchema = new mongoose.Schema({
-  type: String,
   start: String,
   end: String,
   date: Date,
@@ -18,7 +17,12 @@ const userSchema = new mongoose.Schema(
       minlength: 8,
     },
     passwordHash: String,
-    activities: [activitySchema],
+    activities: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Activity',
+      },
+    ],
   },
   {
     toJSON: {
