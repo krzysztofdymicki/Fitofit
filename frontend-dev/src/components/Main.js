@@ -36,12 +36,7 @@ const Main = () => {
       userService.setToken(loggedUser.token)
       setUser({
         ...loggedUser,
-        activities: loggedUser.activities.map((a) => {
-          return {
-            ...a,
-            date: new Date(a.date),
-          }
-        }),
+        actiivities: []
       })
       window.localStorage.setItem('loggedUser', JSON.stringify(loggedUser))
     } catch (e) {
@@ -87,10 +82,11 @@ const Main = () => {
     setUser({
       ...user,
       activities: activities.map((a) => {
-        return {
+        return period === "week" ? {
           ...a,
           date: new Date(a.date),
         }
+        : a
       }),
     })
   }

@@ -32,4 +32,4 @@ app.use('/api/signin', signInRouter)
 app.use(errors)
 app.use(unknownEndpoint)
 
-app.listen(PORT, () => console.log(`Fitofit app listening at port ${PORT}`))
+app.listen(PORT || 3001, () => console.log(`Fitofit app listening at port ${PORT || 3001}`))
