@@ -30,22 +30,9 @@ signInRouter.post('/', async (req, res) => {
 
   const token = jwt.sign(userForToken, config.JWT_SECRET)
 
-  // -- SELECT ONLY ONE WEEK OF ACTIVITIES
-
-  await userInDb.populate({
-    path: 'activities',
-    match: {
-      date: {
-        $gte: date.startOfWeek(),
-        $lt: date.endOfWeek(),
-      },
-    },
-  })
-
   res.status(200).json({
     token,
     username: userForToken.username,
-    activities: userInDb.activities,
   })
 })
 

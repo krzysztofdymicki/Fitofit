@@ -34,7 +34,7 @@ usersRouter.post('/', async (req, res) => {
   })
 
   const savedUser = await userToSave.save()
-  console.log(savedUser.toJSON())
+
   res.status(200).json(savedUser)
 })
 
@@ -71,7 +71,7 @@ usersRouter.post('/activities', async (req, res) => {
         },
         { latitude: endCoordinates[0].lat, longitude: endCoordinates[0].lon }
       ) / 1000
-    console.log('distance', distance)
+   
 
     const newActivity = new Activity({
       start,
@@ -97,7 +97,7 @@ usersRouter.post('/activities', async (req, res) => {
 // -- GET ACTIVITIES OF THE USER
 
 usersRouter.get('/activities/:period', async (req, res) => {
-  console.log(req.token)
+  
   const decodedToken = jwt.verify(req.token, config.JWT_SECRET)
 
   if (!req.token || !decodedToken.id) {
@@ -120,10 +120,19 @@ usersRouter.get('/activities/:period', async (req, res) => {
         $lt: date.endOfWeek(),
       },
     })
-  } // -- SELECT ONLY ONE MONTH OF ACTIVITIES
+  } // -- SELECT ONLY ONE MONTH OF ACTIVITIES AGGREGATED BY DAY
   else if (req.params.period === 'month') {
-    console.log('month')
+
+    activities = await Activity.aggregate(
+      [
+        {$addFields: {  "month" : {$month: '$date'}, "day": {$dayOfMonth: '$date'}}},
+        {$match: { month: date.currentMonth, user: user._id }},
+        {$group: { _id: { day: '$day'}, total: {$sum: "$distance"}}}
+      ]
+    )
+    
   }
+
 
   res.status(200).json(activities)
 })
