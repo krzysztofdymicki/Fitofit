@@ -1,5 +1,5 @@
 # Fitofit
-<h1>Fitofit app</1>
+<h1>Fitofit app<h/1>
 
 To launch this app:
   1. Go to /app and install it, using npm install command,
